@@ -42,4 +42,4 @@ Danach haben wir den Pull-Request überarbeitet, jedoch wurde dieser zunächst n
 
 Daher haben wir die Klammerung in unserer geänderten Codezeile so angepasst, dass unsere Änderung vom Testsystem angenommen worden wurde. Einen Tag später haben wir dann die Benachrichtigung erhalten, dass unser Bug-Fix in die nächste Version mit aufgenommen wird.
 
-![screenshot_Milestone](/Bilder/mileston_1.PNG)
+![screenshot_Milestone](/Bilder/milestone_1.PNG)
