@@ -16,9 +16,13 @@ Zunächst beschäftigen wir uns mit der [contributing guidelines](https://github
 
 Wir haben uns auf den Issue geeinigt, den wir bearbeiten möchten. Außerdem haben wir die Entwicklungs- und Testumgebung über diesen [Guide](http://docs.godotengine.org/en/latest/development/compiling/) eingerichtet. 
 Wir hatten zunächst die Idee dass die Fehlerquelle in der Funktion void Transform2D::affine_invert() der Klasse transform_2d.cpp liegt, jedoch wurde dies nach weitere Kommunikation mit den Entwicklern verworfen, da uns geraten wurde die tile_map.cpp weiter zu untersuchen.
-![screenshot_Kommunikation](/Bilder/Issue_1.png)
+
+![screenshot_Issue_1](/Bilder/Issue_1.png)
+
 Dabei ist uns besonders der Aufruf floor() aufgefallen in der Funktion world_to_map(), da bereits  im Issue darauf hingewiesen worden ist. Daher haben wir uns die Beispielprojekte von dem Issue Ersteller heruntergeladen und selbst den Ablauf nachvollzogen. Dabei ist uns aufgefallen, dass die Fehler bei den Beispielprojekten durch einen Rundungsfehler bei dem Aufruf von floor() auftreten. Anschließend haben wir floor() zu round() abgeändert, da bei floor() immer eine Abrundung statt findet. 
-![screenshot_Kommunikation](/Bilder/Issue_2.png)
+
+![screenshot_Issue_2](/Bilder/Issue_2.PNG)
+
 Danach haben wir diese erste Korrektur in unser Repo eingepflegt und einen Pull-Request erstellt, der vom automatischen Testsystem des Repos auch akzeptiert worden ist. Dieser enthielt eine Beschreibung der Fehlerursache und ein Script zum Testen des Mappings von Weltkoordinaten auf Zellkoordinaten.
 ![screenshot_pull-request](/Bilder/pullRequest2.png)
 
