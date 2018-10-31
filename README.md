@@ -23,17 +23,21 @@ Dabei ist uns besonders der Aufruf floor() aufgefallen in der Funktion world_to_
 ## 27.10.18 
 Nachdem unser Pull-Request einige Stunden online gewesen ist, wurden wir von einem Entwickler auf Anwendungsfälle aufmerksam gemacht worden, die wir bis dahin noch nicht in Betracht gezogen hatten, bei denen unsere Änderungen neue Fehler hervorgerufen hätten. 
 
-![screenshot_Problem]()
+![screenshot_Problem](/Bilder/Problem_1.PNG)
 
 Daher haben wir uns weiter und tiefgehender mit den Funktionsweisen der Klassen und der Funktionen beschäftigt, indem wir den Ablauf logisch nachvollzogen haben. Dabei haben wir Stück für Stück die einzelnen Codeteile der Funktion untersucht und konnten sie als Fehlerquelle ausschließen. Jedoch waren viele Codeteile schwierig zu verstehen, da diese viel mit nicht trivialer Mathematik zutun hatten. Daher haben wir uns weiter durch die Dokumentation von Godot gelesen um eine Möglichkeit zu finden das Programm zu debuggen. Diese haben wir auch gefunden, denn Godot bietet eine [Anleitung](http://docs.godotengine.org/en/3.0/development/cpp/configuring_an_ide.html) dazu wie eine C++ Entwicklungsumgebung aufzusetzen ist, die einen Debugger enthält.
 Aufgrund unseres Problems, welches an eine sog. Scene geknüpft war, welches ein eigener Prozess des eigentlichen Programms ist, mussten spezielle Debugger-Einstellungen vorgenommen werden. Diese Information haben wir nicht in der Dokumentation gefunden. Deswegen sind wir wieder auf den IRC zurückgekommen und haben entsprechen hilfreiche  (sogar ziemlich schnell) Antworten erhalten. Durch das Inspizieren der Variablen innerhalb der Funktionsaufrufe die durch den Aufruf unserer untersuchten Funktion aufgetreten sind haben wir die Fehlerquelle ermitteln können. Denn wie wir bereits zu Anfang vermutet hatten lag die Fehlerquelle wirklich in der Funktion affine_invert(), denn dort entstand ein Rundungsfehler, den es zu behoben galt. 
-![screenshot_Commit]()
+![screenshot_Commit](/Bilder/commit_1.PNG)
 
 Danach haben wir den Pull-Request überarbeitet, jedoch wurde dieser zunächst nicht angenommen vom automatischen Testsystem.
+
+![screenshot_Kommunikation](/Bilder/pullRequest6.PNG)
+
+
 ![screenshot_Kommunikation](/Bilder/pullRequest4.PNG)
 
 ## 28.10.18 
 
 Daher haben wir die Klammerung in unserer geänderten Codezeile so angepasst, dass unsere Änderung vom Testsystem angenommen worden wurde. Einen Tag später haben wir dann die Benachrichtigung erhalten, dass unser Bug-Fix in die nächste Version mit aufgenommen wird.
 
-![screenshot_Milestone]()
+![screenshot_Milestone](/Bilder/mileston_1.PNG)
