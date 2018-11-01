@@ -14,7 +14,8 @@ Zunächst beschäftigen wir uns mit der [contributing guidelines](https://github
 
 ## 26.10.18 
 
-Wir haben uns auf den Issue geeinigt, den wir bearbeiten möchten. Außerdem haben wir die Entwicklungs- und Testumgebung über diesen [Guide](http://docs.godotengine.org/en/latest/development/compiling/) eingerichtet. 
+Wir haben uns zunächst über den Irc-Chat mit den Entwicklern des Projekts in  Verbindung gesetzt. Dabei haben wir von einem anderen Entwickler erfahren, dass das Projekt sehr einsteigerfreundlich ist und das man über den Tag Hacktoberfest gute Issues für Neulinge im Projekt finden kann. Diesen Rat haben wir auch befolgt und haben dann unser Issue ausgewählt.
+Außerdem haben wir die Entwicklungs- und Testumgebung über diesen [Guide](http://docs.godotengine.org/en/latest/development/compiling/) eingerichtet. 
 Wir hatten zunächst die Idee dass die Fehlerquelle in der Funktion void Transform2D::affine_invert() der Klasse transform_2d.cpp liegt, jedoch wurde dies nach weitere Kommunikation mit den Entwicklern verworfen, da uns geraten wurde die tile_map.cpp weiter zu untersuchen.
 
 ![screenshot_Issue_1](/Bilder/Issue_1.png)
