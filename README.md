@@ -48,3 +48,44 @@ Danach haben wir den Pull-Request überarbeitet, jedoch wurde dieser zunächst n
 Daher haben wir die Klammerung in unserer geänderten Codezeile so angepasst, dass unsere Änderung vom Testsystem angenommen worden wurde. Einen Tag später haben wir dann die Benachrichtigung erhalten, dass unser Bug-Fix in die nächste Version mit aufgenommen wird.
 
 ![screenshot_Milestone](/Bilder/milestone_1.PNG)
+  
+# Erfahrungsberichte
+## Simon
+### Opensource-Einstieg
+Beschäftigt hat sich mein Team mit dem Projekt Godot, einer Game-engine geschrieben in C++.
+Durch die nähe zu der Community durch z.B. IRC und der Issue-Diskussion, gelang es uns schnell
+einen Einstieg in das Projekt zu erzielen. Durch die gute Dokumentation und Guides ist es möglich
+gewesen die Entwicklungsumgebung erfolgreich einzurichten. Dennoch war die Komplexität dieses
+Ungetüms einer Software, in einem Ausmaß, der uns vorher noch nicht begegnet ist, überwältigend.
+Wir haben versucht das Problem, eine Präzisionsungenauigkeit bei der Transformation von
+Weltpixeln zu Kachelkoordinaten, zu analysieren und die Fehlerquelle ausfindig zu machen. Die
+Problemstelle wurde lokalisiert und es wurde ein naiver fix implementiert. Der ungewohnte
+Umgang mit Git in Bezug auf ein opensource Projekt hat neue Einblicke gewährt, wie z.B. git
+commit –amend oder git revert. Im Endeffekt wurde unsere Lösung von der Community aus
+nachvollziehbaren Gründen, die mit uns kommuniziert worden sind, abgelehnt. Dennoch sind wir
+um Erfahrungen reicher geworden.
+
+### Scrum an einem Vormittag
+Die Teamfindung hat sich durch die schnelle Aufteilung erübrigt, was dennoch keine Probleme
+dargestellt hat. Alle Teammitglieder waren engagiert und haben schnell produktive Ideen in der
+Sprintplanung dargebracht. Aufgrund meiner etwas eingerosteten Kenntnisse in der
+Webentwicklung konnte ich sehr von den Erfahrungen einzelner Teammitglieder profitieren und
+meinen Perspektive ergänzend dazu darbieten und Lösungsansätze mitgestalten. Die
+Entwicklungssprints wurden genutzt um die Ideen umzusetzen. Die anschließende Besprechung mit
+dem Kunden war kurz und unsere Ergebnisse mussten schnell auf den Punkt gebracht werden.
+Schlussendlich wurde in der Retrospektive Probleme angesprochen und in der nächsten Iteration
+erfolgreich ausgebessert. Im großen und ganzen war der gesamte Prozess spannend und es war
+immer etwas zu tun, was mir gefallen hat.
+
+## Björn
+### Opensource-Einstieg
+Wir haben uns im Team für das Godot-Engine Projekt entschieden, da es uns als gutes Einstiegsprojekt empfohlen wurde. Der Umgang mit den anderen Entwicklern des Projekts war während der Gruppenarbeit immer sehr freundlich und professionell. Außerdem war es sehr spannend zu sehen, wie unsere Lösungsvorschläge für den Issue innerhalb der Projektcommunity diskutiert wurden. 
+Die eigentliche Programmierarbeit um einen Lösungsvorschlag für den im Issue beschriebenen Bug zu lösen, war sehr zeitaufwendig und hat viele Stunden an Codeanalyse und Debugging benötigt. Zudem war die Codebasis an vielen Stellen unverständlich für mich, da ich bisher nur mit C und nicht C++ gearbeitet hatte, und somit waren manche Softwarekonzepte innerhalb des Codes für mich nur schwer erschließbar. Jedoch war die Dokumentation des Projekts sehr gut und man konnte dadurch viele größere Probleme gut lösen, z.B. das Aufsetzen des Debuggers oder die Installation der eigentlichen Software.
+Weiterhin war es zudem sehr interessant, wie sich der Einsatz von git innerhalb der Gruppenarbeit zum zum Unialltag unterschieden hat, denn wir haben z.B. darauf geachtet unsere Commits informativ zu gestalten, damit die anderen Entwickler unsere Änderungen gut nachvollziehen konnten. Denn die meisten bisherigen von uns verfassten Commits in Uni-Projekten waren sehr oft mehr Mittel zum Zweck um den Code zu pushen.
+Insgesamt war die Projektarbeit sehr interessant und die investierte Arbeitszeit hat sich gelohnt, da man einen guten Einblick in die reale Softwareentwicklungswelt bekommen hat.
+
+### Scrum an einem Vormittag
+Das mini Scrum-Projekt war von der Programmierarbeit nicht besonders aufwändig, da schnell eine Code-Basis geschaffen werden konnte. Weiterhin konnte während der Gruppenarbeit jedes Teammitglied sich gut einbringen und produktiv mitarbeiten.
+Die einzelnen Scrum-Phasen waren zwar bereits schon bekannt aus anderen Projektarbeiten, jedoch war die Umsetzung innerhalb der kurzen Zeit eine kleine Herausforderung, da man schnell und zielgerichtet vorgehen musste. Zudem war die Verwendung von Jira komplett neu für mich, und mir war zunächst nicht klar wie die Arbeit mit den Timern gedacht war und wie diese zu verwenden sind. Diese Problematiken haben die erste Scrum Iteration sehr stressig gestaltet und die von uns erzielten Ergebnisse waren noch ausbaufähig. 
+Durch die Hilfe von meinen Gruppenmitglieder gelang es mir aber in der ersten Iteration einen guten Einstieg in die Entwicklungsarbeit mit Jira zu bekommen. Zudem konnten wir durch die Scrum-Retroperspektive und das Kundenfeedback schnell unsere Planungsfehler identifizieren. Dadurch war es uns möglich die zweite Scrum-Iteration wesentlich zielgerichteter und effizienter umzusetzen.
+Insgesamt war die Gruppenarbeit sehr lehrreich, da man schnell einen neuen Workflow kennengelernt hat und diesen stetig verbessern konnte in einer relativ kurzen Zeit, durch die sehr kurzen Iterationen.
