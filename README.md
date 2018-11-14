@@ -79,7 +79,7 @@ immer etwas zu tun, was mir gefallen hat.
 
 ### Testing Einstieg
 Hauptsächlich hat mich Jest interessiert, weshalb dieses Testing-Framework meinen Hauptfokus bekommen hat. Die Essence ist wohl, das Testing-Frameworks eine Sammlung von Funktionen bieten, die Fehler werfen und sie schön präsentiert. Dieses Video wie z.B https://www.youtube.com/watch?v=VQZx1Z3sW0E haben mir sehr geholfen zu verstehen, was diese Frameworks eigentlich machen. 
-Einen Test wurde geschrieben, der testen soll, ob ein DOM objekt eingefügt worden ist.
+Ein Test wurde geschrieben, der testen soll, ob ein DOM objekt eingefügt worden ist.
 
 ```
 function createNewTaskElement (taskString){
