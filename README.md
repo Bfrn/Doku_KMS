@@ -77,6 +77,93 @@ Schlussendlich wurde in der Retrospektive Probleme angesprochen und in der näch
 erfolgreich ausgebessert. Im großen und ganzen war der gesamte Prozess spannend und es war
 immer etwas zu tun, was mir gefallen hat.
 
+### Testing Einstieg
+Hauptsächlich hat mich Jest interessiert, weshalb dieses Testing-Framework meinen Hauptfokus bekommen hat. Die Essence ist wohl, das Testing-Frameworks eine Sammlung von Funktionen bieten, die Fehler werfen und sie schön präsentiert. Dieses Video wie z.B https://www.youtube.com/watch?v=VQZx1Z3sW0E haben mir sehr geholfen zu verstehen, was diese Frameworks eigentlich machen. 
+Einen Test wurde geschrieben, der testen soll, ob ein DOM objekt eingefügt worden ist.
+
+```
+function createNewTaskElement (taskString){
+    var listItem=document.createElement("li");
+
+    //input (checkbox)
+    var checkBox=document.createElement("input");//checkbx
+    //label
+    var label=document.createElement("label");//label
+    //input (text)
+    var editInput=document.createElement("input");//text
+    //button.edit
+    var editButton=document.createElement("button");//edit button
+    //button.delete
+    var deleteButton=document.createElement("button");//delete button
+
+    label.innerText=taskString;
+
+    //Each elements, needs appending
+    checkBox.type="checkbox";
+    editInput.type="text";
+
+    editButton.innerText="Edit";//innerText encodes special characters, HTML does not.
+    editButton.className="edit";
+    deleteButton.innerText="Delete";
+    deleteButton.className="delete";
+    
+    //and appending.
+    listItem.appendChild(checkBox);
+    listItem.appendChild(label);
+    listItem.appendChild(editInput);
+    listItem.appendChild(editButton);
+    listItem.appendChild(deleteButton);
+    return listItem;
+}
+
+addButton.onclick= function(){
+    console.log("Add Task...");
+    //Create a new list item with the text from the #new-task:
+    var listItem=createNewTaskElement(taskInput.value);
+
+    //Append listItem to incompleteTaskHolder
+    incompleteTaskHolder.appendChild(listItem);
+    bindTaskEvents(listItem, taskCompleted);
+
+    taskInput.value="";
+};
+```
+Beim klicken des Buttons wird die Funktion createNewTaskElement mit dem Namen der Task als Parameter angestoßen wird. Diese Funktion erstellt die nötigen Elemente und klebt sie zusammen. Interpretiert habe ich diesen Vorgang als Integrationstest, weniger als Unit-Test, da mehr als eine Einheit (klicken den Buttons und zusammenführen im DOM) behandelt wird.
+
+Der Test legt an sich sieht nicht gut aus. Mit etwas ausgeklügelterer Herangehensweise würde ein etwas kompakterer Test entstehen. Dennoch erledigt er das was ich mir vorgestellt habe.
+
+```
+'use strict';
+test("Add Task Test", () =>{
+    document.body.innerHTML =
+        '<p>' +
+        '   <label for="new-task">Add Item</label><input id="new-task" type="text"><button id="addButton">Add</button>' +
+        '</p>' +
+        '<ul id="incomplete-tasks">' +
+        '</ul>' +
+        '<h3>Completed</h3>\n' +
+        '<ul id="completed-tasks">\n' +
+        '</ul>\n';
+    const { createNewTaskElement, addButton } = require("../todo.js")
+    const $ = require('jquery');
+    jest.mock('../todo')
+    var taskInput=document.getElementById("new-task");//Add a new task.
+    taskInput.value = "Test";
+    $('#addButton').click();
+    expect(taskInput.value).toBe('');
+    expect($('#incomplete-tasks').children().length).toBe(1);
+    expect($('#incomplete-tasks').children().children()[1].innerText).toBe("Test");
+    taskInput.value = "Test_2";
+    $('#addButton').click();
+    expect(taskInput.value).toBe('');
+    expect($('#incomplete-tasks').children().length).toBe(2);
+    expect($('#incomplete-tasks').children().children()[6].innerText).toBe("Test_2");
+});
+```
+Es wird eine abgespeckte version des HTML deklariert, die sich auf diesen Anwendungsfall beschränkt, dies ist evt. unklug gewählt, da eig. mit dem Original gearbeitet werden sollte. 
+Anschließend werden die benötigten Funktionen und Objecte von der zu testenden Datei als "required" deklariert. Um Syntaktischen Zucker hinzuzufügen, wurde jquery eingebunden.
+Anschließen wird ein String im Inputfeld eingetragen, der beim nächsten Schritt als Taskname dienen soll. Das anklicken eines Button wird mit jquery simuliert. Anschließen werden die Test durchgeführt. In Jest wird dies z.B.  mit expect(Prüfwert).toBe(Erwartungswert) gemacht.
+
 ## Björn
 ### Opensource-Einstieg
 Wir haben uns im Team für das Godot-Engine Projekt entschieden, da es uns als gutes Einstiegsprojekt empfohlen wurde. Der Umgang mit den anderen Entwicklern des Projekts war während der Gruppenarbeit immer sehr freundlich und professionell. Außerdem war es sehr spannend zu sehen, wie unsere Lösungsvorschläge für den Issue innerhalb der Projektcommunity diskutiert wurden. 
