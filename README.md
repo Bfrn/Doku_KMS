@@ -81,7 +81,7 @@ immer etwas zu tun, was mir gefallen hat.
 Hauptsächlich hat mich Jest interessiert, weshalb dieses Testing-Framework meinen Hauptfokus bekommen hat. Die Essence ist wohl, das Testing-Frameworks eine Sammlung von Funktionen bieten, die Fehler werfen und sie schön präsentiert. Dieses Video wie z.B https://www.youtube.com/watch?v=VQZx1Z3sW0E haben mir sehr geholfen zu verstehen, was diese Frameworks eigentlich machen. 
 Ein Test wurde geschrieben, der testen soll, ob ein DOM objekt eingefügt worden ist.
 
-```
+```javascript
 function createNewTaskElement (taskString){
     var listItem=document.createElement("li");
 
@@ -132,7 +132,7 @@ Beim klicken des Buttons wird die Funktion createNewTaskElement mit dem Namen de
 
 Der Test legt an sich sieht nicht gut aus. Mit etwas ausgeklügelterer Herangehensweise würde ein etwas kompakterer Test entstehen. Dennoch erledigt er das was ich mir vorgestellt habe.
 
-```
+```javascript
 'use strict';
 test("Add Task Test", () =>{
     document.body.innerHTML =
@@ -176,3 +176,101 @@ Das mini Scrum-Projekt war von der Programmierarbeit nicht besonders aufwändig,
 Die einzelnen Scrum-Phasen waren zwar bereits schon bekannt aus anderen Projektarbeiten, jedoch war die Umsetzung innerhalb der kurzen Zeit eine kleine Herausforderung, da man schnell und zielgerichtet vorgehen musste. Zudem war die Verwendung von Jira komplett neu für mich, und mir war zunächst nicht klar wie die Arbeit mit den Timern gedacht war und wie diese zu verwenden sind. Diese Problematiken haben die erste Scrum Iteration sehr stressig gestaltet und die von uns erzielten Ergebnisse waren noch ausbaufähig. 
 Durch die Hilfe von meinen Gruppenmitglieder gelang es mir aber in der ersten Iteration einen guten Einstieg in die Entwicklungsarbeit mit Jira zu bekommen. Zudem konnten wir durch die Scrum-Retroperspektive und das Kundenfeedback schnell unsere Planungsfehler identifizieren. Dadurch war es uns möglich die zweite Scrum-Iteration wesentlich zielgerichteter und effizienter umzusetzen.
 Insgesamt war die Gruppenarbeit sehr lehrreich, da man schnell einen neuen Workflow kennengelernt hat und diesen stetig verbessern konnte in einer relativ kurzen Zeit, durch die sehr kurzen Iterationen.
+
+## Testing, Codestyle & Linting
+
+Zunächst habe ich mich mit ESLint und JavaScript Standard Style beschäftigt. Dazu habe ich mir die Tools über die Konsole installiert und habe anschließend mir darüber die Fehler im Quelltext anzeigen lassen. Dabei fiel mir auf, dass ESLint auch die Anmerkungen bzw. Fehler  von JavaScript Standard Style ausgibt. Da ESLint für unser relativ kleines Programm schon über 300 Fehler angezeigt hat, habe ich mich aus Bequemlichkeitsgründen dazu entschieden die Tools in der Webstorm-Ide zu installieren. Dies hat auch sehr gut funktioniert, da ich nun mit zwei Tastendrücke das codestyling und das linting für eine java script Datei durchführen kann.
+
+Außerdem habe ich auch JSHint ausprobiert, jedoch habe ich mich für ESLint entschieden, da es mir auch die Fehler von JavaScript Standard Style  angezeigt hat.
+
+Danach habe ich mich mit QUnit und JEST befasst und habe ich nach einigen Testläufen dazu entschieden JEST zu verwenden, da es für mich zugänglicher gewesen ist und mir die IDE-Integration leichter fiel.
+
+Jedoch stand ich zunächst vor dem Problem, dass ich nicht wusste wie ich mit JEST Funktionen testen sollte die den Dom manipulieren.
+Jedoch konnte ich durch großen Zeitaufwand das Problem lösen und folgende Testfälle erstellen:
+
+```javascript
+var $ = require('jquery')
+var html = require('fs').readFileSync('./todo.html').toString()
+const testInput = 'Task_1'
+
+test('Adding Task', () => {
+  document.documentElement.innerHTML = html
+  const { addButton } = require('../todo.js')
+
+  // check that incomplete-tasks is empty
+  expect($('#incomplete-tasks').children().length).toBe(0)
+
+  // submit test.input
+  $('#new-task').val(testInput)
+  $('#btn').click()
+
+  // check that the test-input is removed from input-field
+  expect($('#new-task').val()).not.toMatch(testInput)
+
+  // check if the new-task was added to  incomplete-tasks
+  expect($('#incomplete-tasks').children().length).toBe(1)
+
+  // check if the new task has the right content
+  expect(document.getElementById('incomplete-tasks').children[0].children[1].innerText).toMatch(testInput)
+})
+
+test('Deleting Task', () => {
+  document.documentElement.innerHTML = html
+  const { addButton } = require('../todo.js')
+
+  // check that incomplete-tasks is empty
+  expect($('#incomplete-tasks').children().length).toBe(0)
+
+  // submit test.input
+  $('#new-task').val(testInput)
+  $('#btn').click()
+
+  // check if the new task was added correctly
+  expect($('#new-task').val()).not.toMatch(testInput)
+  expect($('#incomplete-tasks').children().length).toBe(1)
+  expect(document.getElementById('incomplete-tasks').children[0].children[1].innerText).toMatch(testInput)
+
+  // delete new-task
+  $('#incomplete-tasks').children('li:nth-child(1)').children('.delete').click()
+  // check if the new task was deleted correctly
+  expect($('#incomplete-tasks').children().length).toBe(0)
+  expect($('#completed-tasks').children().length).toBe(0)
+})
+
+test('Edit Task', () => {
+  document.documentElement.innerHTML = html
+  const { addButton } = require('../todo.js')
+
+  // check that incomplete-tasks is empty
+  expect($('#incomplete-tasks').children().length).toBe(0)
+
+  // submit test.input
+  $('#new-task').val(testInput)
+  $('#btn').click()
+
+  // check if the new task was added correctly
+  expect($('#new-task').val()).not.toMatch(testInput)
+  expect($('#incomplete-tasks').children().length).toBe(1)
+  expect(document.getElementById('incomplete-tasks').children[0].children[1].innerText).toMatch(testInput)
+
+  // edit new-task
+  const editedInput = 'Edited_Task'
+  document.getElementById('incomplete-tasks').children[0].children[1].innerText = editedInput
+  // check if the new task was edited correctly
+  expect($('#incomplete-tasks').children().length).toBe(1)
+  expect(document.getElementById('incomplete-tasks').children[0].children[1].innerText).toMatch(editedInput)
+})
+
+```
+
+Diese Tests prüfen ob ein Task korrekt erstellt, gelöscht oder bearbeitet worden ist durch eine quasi "Simulation" einer User-Interaktion. Somit handelt es sich hierbei eher um einen Funktionstest als um einen Unit-Test. Um diese Problematik zu umgehen wäre es vlt. sinnvoller gewesen die Funktionalitäten zum Erstellen bzw. Bearbeiten der eigentlichen Daten von den Funktionen zum Darstellen der Daten zu trennen. Dies hätte es ermöglicht sinnvolle Unit-Tests zu schreiben.
+Jedoch gelang es mir aus Zeitknappheit nicht dies zusätzlich umzusetzen.
+Weiterhin verwenden die Tests JQuery zur besseren Lesbarkeit, jedoch werden an manchen Stellen noch die klassischen Selektoren verwendet, da ich  längere Zeit nicht mehr mit JQuery gearbeitet hatte.
+
+Das Hauptproblem beim Erstellen der Test war die Einbindung des html-codes in die Tests und die richtig Import-Methode für die Funktionalität des addButton. Jedoch konnte ich diese Probleme mit Hilfe meiner Kommilitonen  und folgender Guides lösen:
+* http://www.phpied.com/jest-jquery-testing-vanilla-app/
+* https://jestjs.io/docs/en/tutorial-jquery
+
+Insgesamt denke ich das die von mir geschriebenen Tests noch ausbaufähig sind, da in allen Testfällen noch doppelter Code auftritt und noch nicht alle Dom-Interaktionen über JQuery stattfinden.
+
+Meine Änderungen am Code sind unter folgendem [Link](https://github.com/priiish/KMS_Team1/tree/Bjoerns_Version) einsehbar.
