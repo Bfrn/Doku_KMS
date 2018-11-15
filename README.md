@@ -164,6 +164,26 @@ Es wird eine abgespeckte version des HTML deklariert, die sich auf diesen Anwend
 Anschließend werden die benötigten Funktionen und Objecte von der zu testenden Datei als "required" deklariert. Um Syntaktischen Zucker hinzuzufügen, wurde jquery eingebunden.
 Anschließen wird ein String im Inputfeld eingetragen, der beim nächsten Schritt als Taskname dienen soll. Das anklicken eines Button wird mit jquery simuliert. Anschließen werden die Test durchgeführt. In Jest wird dies z.B.  mit expect(Prüfwert).toBe(Erwartungswert) gemacht.
 
+```javascript
+test('Delete Task', () => {
+  const $ = require('jquery')
+  document.documentElement.innerHTML = html
+  jest.mock('../todo')
+  const { addButton } = require('../todo.js')
+  $('#addButton').val('complete_test')
+  $('#addButton').click()
+  $('#addButton').val('incomplete_test')
+  $('#addButton').click()
+  $('#delete').each(() => {
+    this.click()
+  })
+  expect($('#incomplete-tasks').children().length).toBe(0)
+  expect($('#complete-tasks').children().length).toBe(0)
+
+})
+```
+Der zweite Test erstellt zuerst "incomplete-task" Listenelemente, anschließend werden alle "#delet"-Buttons betätigt. Erwartungsmäßig sind alle Task entsprechend gelöscht.
+
 ## Björn
 ### Opensource-Einstieg
 Wir haben uns im Team für das Godot-Engine Projekt entschieden, da es uns als gutes Einstiegsprojekt empfohlen wurde. Der Umgang mit den anderen Entwicklern des Projekts war während der Gruppenarbeit immer sehr freundlich und professionell. Außerdem war es sehr spannend zu sehen, wie unsere Lösungsvorschläge für den Issue innerhalb der Projektcommunity diskutiert wurden. 
