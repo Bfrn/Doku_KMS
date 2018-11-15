@@ -179,7 +179,6 @@ test('Delete Task', () => {
   })
   expect($('#incomplete-tasks').children().length).toBe(0)
   expect($('#complete-tasks').children().length).toBe(0)
-
 })
 ```
 Der zweite Test erstellt zuerst "incomplete-task" Listenelemente, anschließend werden alle "#delet"-Buttons betätigt. Erwartungsmäßig sind alle Task entsprechend gelöscht. Wie man auch festellen kann, ist das Styling in diesem Test anders. Hier wurde ESLint und JavaScript Standard Style angewandt. Ausserdem habe ich mir das Einlesen der HTML bei Björn abgeschaut.
