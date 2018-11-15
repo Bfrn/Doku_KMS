@@ -182,7 +182,7 @@ test('Delete Task', () => {
 
 })
 ```
-Der zweite Test erstellt zuerst "incomplete-task" Listenelemente, anschließend werden alle "#delet"-Buttons betätigt. Erwartungsmäßig sind alle Task entsprechend gelöscht.
+Der zweite Test erstellt zuerst "incomplete-task" Listenelemente, anschließend werden alle "#delet"-Buttons betätigt. Erwartungsmäßig sind alle Task entsprechend gelöscht. Wie man auch festellen kann, ist das Styling in diesem Test anders. Hier wurde ESLint und JavaScript Standard Style angewandt. Ausserdem habe ich mir das Einlesen der HTML bei Björn abgeschaut.
 
 ## Björn
 ### Opensource-Einstieg
