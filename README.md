@@ -144,7 +144,7 @@ test("Add Task Test", () =>{
         '<h3>Completed</h3>\n' +
         '<ul id="completed-tasks">\n' +
         '</ul>\n';
-    const { createNewTaskElement, addButton } = require("../todo.js")
+    const { addButton } = require("../todo.js")
     const $ = require('jquery');
     jest.mock('../todo')
     var taskInput=document.getElementById("new-task");//Add a new task.
