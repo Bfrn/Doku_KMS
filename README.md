@@ -81,6 +81,10 @@ immer etwas zu tun, was mir gefallen hat.
 Hauptsächlich hat mich Jest interessiert, weshalb dieses Testing-Framework meinen Hauptfokus bekommen hat. Die Essence ist wohl, das Testing-Frameworks eine Sammlung von Funktionen bieten, die Fehler werfen und sie schön präsentiert. Dieses Video wie z.B https://www.youtube.com/watch?v=VQZx1Z3sW0E haben mir sehr geholfen zu verstehen, was diese Frameworks eigentlich machen. 
 Ein Test wurde geschrieben, der testen soll, ob ein DOM objekt eingefügt worden ist.
 
+
+Hinzufügen eines Task
+---------------
+
 ```javascript
 function createNewTaskElement (taskString){
     var listItem=document.createElement("li");
@@ -164,6 +168,40 @@ Es wird eine abgespeckte version des HTML deklariert, die sich auf diesen Anwend
 Anschließend werden die benötigten Funktionen und Objecte von der zu testenden Datei als "required" deklariert. Um Syntaktischen Zucker hinzuzufügen, wurde jquery eingebunden.
 Anschließen wird ein String im Inputfeld eingetragen, der beim nächsten Schritt als Taskname dienen soll. Das anklicken eines Button wird mit jquery simuliert. Anschließen werden die Test durchgeführt. In Jest wird dies z.B.  mit expect(Prüfwert).toBe(Erwartungswert) gemacht.
 
+Entfernen eines Task
+---------------
+
+Die Funktion die im Kern dafür zuständig ist, eine Task aus dem DOM zu entfernen. Diese Funktion soll getestet werden. Auch dieser Test ist eher ein Integrationstest, als ein Unit-Test, da die Buttons auch von Wichtigkeit sind und betätigt werden müssen.
+```javascript
+// Delete task.
+var deleteTask = function () {
+  console.log('Delete Task...')
+
+  var listItem = this.parentNode
+  var ul = listItem.parentNode
+  // Remove the parent list item from the ul.
+  ul.removeChild(listItem)
+}
+```
+
+Die bindTaskEvents-Funktion klebt die Funktionalitäten zusammen. Die Funktion ist hier aufgelistet, da sie die benötigten Buttons repräsentiert. Im speziellen interessiert uns der deleteButton, der mit der Funktion deleteTask verknüpft wird, die wir testen wollen.
+```javascript
+var bindTaskEvents = function (taskListItem, checkBoxEventHandler) {
+  console.log('bind list item events')
+  // select ListItems children
+  var checkBox = taskListItem.querySelector('input[type=checkbox]')
+  var editButton = taskListItem.querySelector('button.edit')
+  var deleteButton = taskListItem.querySelector('button.delete')
+
+  // Bind editTask to edit button.
+  editButton.onclick = editTask
+  // Bind deleteTask to delete button.
+  deleteButton.onclick = deleteTask
+  // Bind taskCompleted to checkBoxEventHandler.
+  checkBox.onchange = checkBoxEventHandler
+}
+```
+Der "delete Task" Test:
 ```javascript
 test('Delete Task', () => {
   const $ = require('jquery')
@@ -181,7 +219,7 @@ test('Delete Task', () => {
   expect($('#complete-tasks').children().length).toBe(0)
 })
 ```
-Der zweite Test erstellt zuerst "incomplete-task" Listenelemente, anschließend werden alle "#delet"-Buttons betätigt. Erwartungsmäßig sind alle Task entsprechend gelöscht. Wie man auch festellen kann, ist das Styling in diesem Test anders. Hier wurde ESLint und JavaScript Standard Style angewandt. Ausserdem habe ich mir das Einlesen der HTML bei Björn abgeschaut.
+Dieser Test erstellt zuerst "incomplete-task" Listenelemente, anschließend werden alle "#delete"-Buttons betätigt. Erwartungsmäßig sind alle Task entsprechend gelöscht. Wie man auch festellen kann, ist das Styling in diesem Test anders. Hier wurde ESLint und JavaScript Standard Style angewandt. Ausserdem habe ich mir das Einlesen der HTML bei Björn abgeschaut.
 
 ## Björn
 ### Opensource-Einstieg
