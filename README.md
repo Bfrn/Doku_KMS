@@ -82,8 +82,8 @@ Hauptsächlich hat mich Jest interessiert, weshalb dieses Testing-Framework mein
 Ein Test wurde geschrieben, der testen soll, ob ein DOM objekt eingefügt worden ist.
 
 
-Hinzufügen eines Task
----------------
+#### Hinzufügen eines Task
+
 
 ```javascript
 function createNewTaskElement (taskString){
@@ -168,8 +168,7 @@ Es wird eine abgespeckte version des HTML deklariert, die sich auf diesen Anwend
 Anschließend werden die benötigten Funktionen und Objecte von der zu testenden Datei als "required" deklariert. Um Syntaktischen Zucker hinzuzufügen, wurde jquery eingebunden.
 Anschließen wird ein String im Inputfeld eingetragen, der beim nächsten Schritt als Taskname dienen soll. Das anklicken eines Button wird mit jquery simuliert. Anschließen werden die Test durchgeführt. In Jest wird dies z.B.  mit expect(Prüfwert).toBe(Erwartungswert) gemacht.
 
-Entfernen eines Task
----------------
+#### Entfernen eines Task
 
 Die Funktion die im Kern dafür zuständig ist, eine Task aus dem DOM zu entfernen. Diese Funktion soll getestet werden. Auch dieser Test ist eher ein Integrationstest, als ein Unit-Test, da die Buttons auch von Wichtigkeit sind und betätigt werden müssen.
 ```javascript
