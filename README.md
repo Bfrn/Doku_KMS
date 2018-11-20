@@ -330,3 +330,118 @@ Das Hauptproblem beim Erstellen der Test war die Einbindung des html-codes in di
 Insgesamt denke ich das die von mir geschriebenen Tests noch ausbaufähig sind, da in allen Testfällen noch doppelter Code auftritt und noch nicht alle Dom-Interaktionen über JQuery stattfinden.
 
 Meine Änderungen am Code sind unter folgendem [Link](https://github.com/priiish/KMS_Team1/tree/Bjoerns_Version) einsehbar.
+
+# Continuous Delivery
+
+## Unit-Tests
+
+Wir hatten bereits im Rahmen des mini Scrum-Projekts bereits ein Repository erstellt, dieses haben wir geforkt und dann auf unserem geforktem [Repo](https://github.com/Soockee/KMS_Team1) weitergearbeitet.
+
+In der vorherigen Aufgabe hatten wir die Unit-Test nur einzeln über die IDE gestartet. Daher haben wir zunächst unsere package.json Datei so abgeändert, dass man durch den Befehl `npm test` alle Unit-Tests, welche mithilfe von JEST geschrieben worden sind, gleichzeitig durchlaufen lassen kann. 
+Die folgenden Tests sind leicht angepasst aus der vorherigen Wochenaufgabe entnommen: 
+
+``` javascript
+var $ = require('jquery')
+var html = require('fs').readFileSync('./index.html').toString()
+const testInput = 'Task_1'
+
+test('Adding Task', () => {
+  document.documentElement.innerHTML = html
+  const { addButton } = require('../todo.js')
+
+  // check that incomplete-tasks is empty
+  expect($('#incomplete-tasks').children().length).toBe(0)
+
+  // submit test.input
+  $('#new-task').val(testInput)
+  $('#btn').click()
+
+  // check that the test-input is removed from input-field
+  expect($('#new-task').val()).not.toMatch(testInput)
+
+  // check if the new-task was added to  incomplete-tasks
+  expect($('#incomplete-tasks').children().length).toBe(1)
+
+  // check if the new task has the right content
+  expect(document.getElementById('incomplete-tasks').children[0].children[1].innerText).toMatch(testInput)
+})
+
+test('Deleting Task', () => {
+  document.documentElement.innerHTML = html
+  const { addButton } = require('../todo.js')
+
+  // check that incomplete-tasks is empty
+  expect($('#incomplete-tasks').children().length).toBe(0)
+
+  // submit test.input
+  $('#new-task').val(testInput)
+  $('#btn').click()
+
+  // check if the new task was added correctly
+  expect($('#new-task').val()).not.toMatch(testInput)
+  expect($('#incomplete-tasks').children().length).toBe(1)
+  expect(document.getElementById('incomplete-tasks').children[0].children[1].innerText).toMatch(testInput)
+
+  // delete new-task
+  $('#incomplete-tasks').children('li:nth-child(1)').children('.delete').click()
+  // check if the new task was deleted correctly
+  expect($('#incomplete-tasks').children().length).toBe(0)
+  expect($('#completed-tasks').children().length).toBe(0)
+})
+
+test('Edit Task', () => {
+  document.documentElement.innerHTML = html
+  const { addButton } = require('../todo.js')
+
+  // check that incomplete-tasks is empty
+  expect($('#incomplete-tasks').children().length).toBe(0)
+
+  // submit test.input
+  $('#new-task').val(testInput)
+  $('#btn').click()
+
+  // check if the new task was added correctly
+  expect($('#new-task').val()).not.toMatch(testInput)
+  expect($('#incomplete-tasks').children().length).toBe(1)
+  expect(document.getElementById('incomplete-tasks').children[0].children[1].innerText).toMatch(testInput)
+
+  // edit new-task
+  const editedInput = 'Edited_Task'
+  document.getElementById('incomplete-tasks').children[0].children[1].innerText = editedInput
+  // check if the new task was edited correctly
+  expect($('#incomplete-tasks').children().length).toBe(1)
+  expect(document.getElementById('incomplete-tasks').children[0].children[1].innerText).toMatch(editedInput)
+})
+```
+
+Dies wurde erreicht, indem man folgenden Code zu der package.json Datei hinzugefügt hat:
+``` json
+"scripts": {
+    "test": "jest"
+  }
+```
+Jedoch hat sich beim Durchführen der Tests das Problem ergeben, dass nur der erste Test erfolgreich gewesen ist, jedoch nicht die anderen beiden. Da es in diesen nicht mehr möglich gewesen ist Daten über das onklick-event eines Button zu verarbeiten, da dieser nicht mehr auf den Funktionsaufruf `.click()` reagiert hat.
+
+![screenshot_ci_1](/Bilder/ci_1.png)
+
+Wir konnten nach vielen Stunden des Debuggings nicht die genaue Fehlerquelle identifizieren. Daher haben wir die einzelnen Tests jeweils in eine eigene Datei ausgelagert.
+
+![screenshot_ci_2](/Bilder/ci_2.png)
+
+Somit konnten wir das gewünschte Testergebnis erzielen.
+
+![screenshot_ci_3](/Bilder/ci_3.png)
+
+## Travis CI
+
+Danach sind wir dazu übergegangen unser Unit-Tests mithilfe von Travis-Ci in unsere CI-Pipeline einzubinden. Dazu haben wir uns die Dokumentation von Travis CI durchgelesen und uns dazu entschieden in unserer .travis.yml Datei Node.js zu verwenden, da wir unsere Anwendung in Java Script geschrieben hatten. An der Travis Datei mussten wir sonst nichts weiter verändern, da bei Node.js in Travis standartmäßig als Installationsbefehl `npm install` und als Script `npm test` angegeben ist und unsere package.json Datei auf auf dem Repo verfügbar gelegen hat.
+
+``` yml
+language: node_js
+node_js:
+  - "11"
+```
+
+Um nun die Ci-Pipeline in unserem Repo einzubinden mussten wir zunächst Travis für unser Repo aktivieren und die .travis.yml Datei in unser Repo hochladen.
+
+Direkt im Anschluss sind wir dazu übergegangen den Deployment-Prozess auf Github-Pages in Travis umzusetzen. Dazu haben wir.....
