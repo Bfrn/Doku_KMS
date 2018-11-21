@@ -460,3 +460,20 @@ Bei dieser Konfiguration werden nur die Änderungen,welche auf den master gepush
 ![screenshot_ci_4](/Bilder/ci_4.png)
 
 Wenn nun ein neuer Commit auf das Repo gepusht wird durchläuft der Code unsere Pipeline, die aktuell aus Unit-Tests besteht. In dem Fall, das CI uns positive Rückmeldung gibt und der Commit tatsächlich auf dem Master landet, wird der aktualisierte Masterbranch, der die Änderungen des Commits beinhaltet zusätzlich auf den gh-pages Branch deployed. Die komplette Ausgabe für einen beispielhaften Commit kann [hier](https://travis-ci.org/Soockee/KMS_Team1/builds/456413083) eingesehen werden. 
+
+## Hound Ci
+
+Zunächst haben wir Hound für unser Repo aktiviert und danach die .hound.yml Datei mit folgendem Inhalt angelegt: 
+
+``` yml
+fail_on_violations: false
+
+eslint:
+  enabled: true
+  config_file: .eslintrc
+```
+
+Diese haben wir so konfiguriert, dass wenn Hound Ci Fehler findet der Commit nicht als fehlgeschlagen angezeigt wird. Da wir der Ansicht gewesen sind, dass diese Code-Regelverletzungen von einem Maintainer individuell beurteilt werden sollte. Wir verwenden ESLint als Linter, welcher auf unsere .eslintrc Datei  zugreift, welche weitere Konfigurationseinstellungen enthält.
+Nun werden Pull-Requests mithilfe von ESLint überprüft, wie hier in einem Beispiel zu sehen ist: 
+
+![screenshot_ci_5](/Bilder/ci_5.png)
