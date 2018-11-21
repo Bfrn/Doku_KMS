@@ -434,7 +434,7 @@ Somit konnten wir das gewünschte Testergebnis erzielen.
 
 ## Travis CI
 
-Danach sind wir dazu übergegangen unser Unit-Tests mithilfe von Travis-Ci in unsere CI-Pipeline einzubinden. Dazu haben wir uns die Dokumentation von Travis CI durchgelesen und uns dazu entschieden in unserer .travis.yml Datei Node.js zu verwenden, da wir unsere Anwendung in Java Script geschrieben hatten. An der Travis Datei mussten wir sonst nichts weiter verändern, da bei Node.js in Travis standartmäßig als Installationsbefehl `npm install` und als Script `npm test` angegeben ist und unsere package.json Datei auf auf dem Repo verfügbar gelegen hat.
+Danach sind wir dazu übergegangen unser Unit-Tests mithilfe von Travis-Ci in unsere CI-Pipeline einzubinden. Dazu haben wir uns die Dokumentation von Travis CI durchgelesen und uns dazu entschieden in unserer .travis.yml Datei Node.js zu verwenden, da wir unsere Anwendung in Java Script geschrieben hatten. An der Travis Datei mussten wir sonst nichts weiter verändern, da bei Node.js in Travis standardmäßig als Installationsbefehl `npm install` und als Script `npm test` angegeben ist und unsere package.json Datei auf auf dem Repo verfügbar gelegen hat.
 
 ``` yml
 language: node_js
@@ -444,8 +444,8 @@ node_js:
 
 Um nun die Ci-Pipeline in unserem Repo einzubinden mussten wir zunächst Travis für unser Repo aktivieren und die .travis.yml Datei in unser Repo hochladen.
 
-Direkt im Anschluss sind wir dazu übergegangen den Deployment-Prozess auf Github-Pages in Travis umzusetzen. Dazu haben wir zunächst Github-Pages für unser Repo aktiviert, woraufhin der Branch `gh-pages` der die Version des Codes enthält der auf Github-Pages verwendet wird.
-folgenden Code aus der Travis CI Doku zu unserer .travis.yml hinzugefügt:
+Direkt im Anschluss sind wir dazu übergegangen den Deployment-Prozess auf Github-Pages in Travis umzusetzen. Dazu haben wir zunächst Github-Pages für unser Repo aktiviert, woraufhin der Branch `gh-pages` erstellt wird,der die Version des Codes enthält, der auf Github-Pages verwendet wird.
+Folgender Code wurde aus der Travis CI Dokum zu unserer .travis.yml hinzugefügt:
 ``` yml
 deploy:
   provider: pages
@@ -459,4 +459,4 @@ Bei dieser Konfiguration werden nur die Änderungen,welche auf den master gepush
 
 ![screenshot_ci_4](/Bilder/ci_4.png)
 
-Wenn nun ein neuer Commit auf das Repo gepusht wird durchläuft der Code unsere Unit-Tests und falls er auf den master gepusht wurde, wird er zusätzlich auf den gh-pages Branch deployed. Die komplette Ausgabe für einen beispielhaften Commit kann [hier](https://travis-ci.org/Soockee/KMS_Team1/builds/456413083) eingesehen werden. 
+Wenn nun ein neuer Commit auf das Repo gepusht wird durchläuft der Code unsere Pipeline, die aktuell aus Unit-Tests besteht. In dem Fall, das CI uns positive Rückmeldung gibt und der Commit tatsächlich auf dem Master landet, wird der aktualisierte Masterbranch, der die Änderungen des Commits beinhaltet zusätzlich auf den gh-pages Branch deployed. Die komplette Ausgabe für einen beispielhaften Commit kann [hier](https://travis-ci.org/Soockee/KMS_Team1/builds/456413083) eingesehen werden. 
