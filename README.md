@@ -444,4 +444,19 @@ node_js:
 
 Um nun die Ci-Pipeline in unserem Repo einzubinden mussten wir zunächst Travis für unser Repo aktivieren und die .travis.yml Datei in unser Repo hochladen.
 
-Direkt im Anschluss sind wir dazu übergegangen den Deployment-Prozess auf Github-Pages in Travis umzusetzen. Dazu haben wir.....
+Direkt im Anschluss sind wir dazu übergegangen den Deployment-Prozess auf Github-Pages in Travis umzusetzen. Dazu haben wir zunächst Github-Pages für unser Repo aktiviert, woraufhin der Branch `gh-pages` der die Version des Codes enthält der auf Github-Pages verwendet wird.
+folgenden Code aus der Travis CI Doku zu unserer .travis.yml hinzugefügt:
+``` yml
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN 
+  keep-history: true
+  on:
+    branch: master
+```
+Bei dieser Konfiguration werden nur die Änderungen,welche auf den master gepusht werden, auf den `gh-pages` Branch deployed, wenn sie alle Tests bestehen. Weiterhin wurde für den Deployment-Prozess die Environment Variable GITHUB_TOKEN in Travis angelegt.
+
+![screenshot_ci_4](/Bilder/ci_4.png)
+
+Wenn nun ein neuer Commit auf das Repo gepusht wird durchläuft der Code unsere Unit-Tests und falls er auf den master gepusht wurde, wird er zusätzlich auf den gh-pages Branch deployed. Die komplette Ausgabe für einen beispielhaften Commit kann [hier](https://travis-ci.org/Soockee/KMS_Team1/builds/456413083) eingesehen werden. 
